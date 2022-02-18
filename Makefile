@@ -4,7 +4,11 @@ runserver:
 test:
 	python3 -m unittest tests/test_user_base.py
 
-make requirements:
-python3 -m pip freeze
+requirements:
+	python3 -m pip freeze
+
+env:
+	source env/bin/activate
+
 
 	
