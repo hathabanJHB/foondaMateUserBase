@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 import sys
 import requests
 import plotext as plt
@@ -28,7 +29,25 @@ def getHttpData(url) -> (str):
     
 
 def arrangeData(data) -> (list): #!docstring
-    '''TODO'''
+    """[]
+
+    Args:
+        data [string]: [stringfied dictionary]
+
+    Returns:
+        [list]: [users<int>:list containing number of users] [dates<str>:list of dates in a string format]
+    """    
+    data = data.replace("'",'"') # replace (') with (") so that data can be converted to a dictionary.
+    mappedData = json.loads(data)
+    sortedData = sorted(mappedData.items()) # sort dictionary by keys
+    users =[]
+    dates = []
+
+    for i in range(len(sortedData)):
+        dates.append(sortedData[i][0])
+        users.append(int(sortedData[i][1]))
+
+    return users,dates
     
 
 def dateFilter(dates, start_date, end_date) -> (list): #!docstring
@@ -76,7 +95,9 @@ def plotGraph(x, y): #!docstring
 if __name__ == '__main__':
     url = 'http://sam-user-activity.eu-west-1.elasticbeanstalk.com/'
     data = getHttpData(url)
-    # dates = 
+    args = sys.argv
+    users, dates = arrangeData(data)
+    
     if type(getArgsDates(dates, args)) == list:
         start_date, end_date = getArgsDates(dates, args)
     else:
@@ -84,6 +105,5 @@ if __name__ == '__main__':
         #help()
         exit()
 
-    print(args)
 
     # print(getArgsDates())

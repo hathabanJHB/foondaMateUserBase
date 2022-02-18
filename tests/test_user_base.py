@@ -3,8 +3,7 @@ import user_base
 
 
 class MyTestCase(unittest.TestCase):
-    def test_getHttpData_correct(self):
-       def test_getHttpData_correct(self):
+    def test_getHttpData_correct(self): 
         expected = str({
            "01-01-2022":300,
            "02-01-2022":500,
@@ -80,3 +79,15 @@ class MyTestCase(unittest.TestCase):
         expected = 0
         result = user_base.getArgsDates(dates, args)
         self.assertEqual(expected, result)
+
+
+    def test_arrangeData_correct(self):
+        data = str({
+           "01-01-2022":300,
+           "02-01-2022":500,
+           "03-01-2022":700,
+           "04-01-2022":1300,
+           })
+        expected = [300,500,700,1300],["01-01-2022", "02-01-2022", "03-01-2022", "04-01-2022"]
+        results = user_base.arrangeData(data)
+        self.assertEqual(expected, results)
