@@ -28,8 +28,8 @@ def getHttpData(url) -> (str):
         return err_msg
     
 
-def arrangeData(data) -> (list): #!docstring
-    """[]
+def arrangeData(data) -> (list):
+    """[sorts dates and users]
 
     Args:
         data [string]: [stringfied dictionary]
@@ -50,15 +50,17 @@ def arrangeData(data) -> (list): #!docstring
     return users,dates
     
 
-def dateFilter(dates, start_date, end_date) -> (list): #!docstring
-    """_summary_
+def dateFilter(dates, start_date, end_date) -> (list):
+    """filter date by start date and end date
 
     Args:
         dates (_type_): _description_
+        start_date: (string) dd-mm-yyyy
+        end_date: (string) dd-mm-yyyy
 
     Returns:
-        _type_: _description_
-    """    
+        list: list of dates and list of users
+    """        
     if start_date in dates and end_date in dates:
         start_date = datetime.strptime(start_date, '%d-%m-%Y')
         end_date = datetime.strptime(end_date, '%d-%m-%Y')
@@ -66,10 +68,22 @@ def dateFilter(dates, start_date, end_date) -> (list): #!docstring
     return []
 
 
-def getArgsDates(dates, args)-> (list):
+def getArgsDates(dates, args)-> (list): 
+    """_summary_
+
+    Args:
+        dates (list): _description_
+        args (list): _description_
+
+    Returns:
+    (list): _description_
+    """    
     if len(args) == 5:
-        start_date = [args[i+1] for i in range(len(args)) if args[i] == '-s'][0]
-        end_date = [args[i+1] for i in range(len(args)) if args[i] == '-e'][0]
+        try:
+            start_date = [args[i+1] for i in range(len(args)) if args[i] == '-s'][0]
+            end_date = [args[i+1] for i in range(len(args)) if args[i] == '-e'][0]
+        except IndexError:
+            return 0
         try:
             sd = datetime.strptime(start_date, '%d-%m-%Y') #start date
             ed = datetime.strptime(end_date, '%d-%m-%Y') #end date
@@ -85,11 +99,36 @@ def getArgsDates(dates, args)-> (list):
     elif len(args) == 1:
         return [dates[0], dates[-1]]
     else:
-       #TODO implement help function
        return 0
 
-def plotGraph(x, y): #!docstring
-    '''TODO'''
+
+def plotGraph(x, y):
+    """plots a bar graph on the terminal with given list of coordinates given as arguments .
+
+    Args:
+        x (list): list of x-axis data.
+        y (list): list of y-axis data.
+    """    
+    plt.clc() # making the plot colorless; so it adapts to the terminal colors
+    plt.title("FOONDAMATE USERBASE")
+    plt.bar(y,x)
+    plt.show()
+
+
+def help():
+    """_shows help message
+
+    Returns:
+        (string): help message
+    """    
+    return """Tool to visualize User base
+    usage: [user_base.py -s 12-11-2002 -e 12-3-2023]
+    
+    Date format: dd-mm-yyyy
+    Start date should be less than end date
+    
+    -s \t\t start date
+    -e \t\t end date"""
 
 
 if __name__ == '__main__':
@@ -97,12 +136,14 @@ if __name__ == '__main__':
     data = getHttpData(url)
     args = sys.argv
     users, dates = arrangeData(data)
-    
+
     if type(getArgsDates(dates, args)) == list:
         start_date, end_date = getArgsDates(dates, args)
+        plotGraph(users, dates)
     else:
-        #TODO help
-        #help()
+        print(f'Available dates: ', *dates)
+        print()
+        print(help())
         exit()
 
 
