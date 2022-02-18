@@ -48,3 +48,35 @@ class MyTestCase(unittest.TestCase):
         expected = []
         result = user_base.dateFilter(dates, start_date, end_date)
         self.assertEqual(expected, result)
+    
+
+    def test_get_getArgsDates_correct(self):
+        dates = ['10-2-2022', '1-3-2022', '5-3-2022', '5-4-2022', '6-4-2022', '7-4-2022', '6-5-2022']
+        args = ['user_base.py', '-s', '12-11-2002', '-e', '12-3-2023']
+        expected = ['12-11-2002', '12-3-2023']
+        result = user_base.getArgsDates(dates, args)
+        self.assertEqual(expected, result)
+
+
+    def test_get_getArgsDates_no_args(self):
+        dates = ['10-2-2022', '1-3-2022', '5-3-2022', '5-4-2022', '6-4-2022', '7-4-2022', '6-5-2022']
+        args = ['user_base.py']
+        expected = ['10-2-2022', '6-5-2022']
+        result = user_base.getArgsDates(dates, args)
+        self.assertEqual(expected, result)
+    
+
+    def test_get_getArgsDates_too_many_args(self):
+        dates = ['10-2-2022', '1-3-2022', '5-3-2022', '5-4-2022', '6-4-2022', '7-4-2022', '6-5-2022']
+        args = ['user_base.py', '-s', '12-11-2002', '-e', '12-3-2023', "I'm not suppost to be here"]
+        expected = 0
+        result = user_base.getArgsDates(dates, args)
+        self.assertEqual(expected, result)
+    
+    
+    def test_get_getArgsDates_invalid_dates(self):
+        dates = ['10-2-2022', '1-3-2022', '5-3-2022', '5-4-2022', '6-4-2022', '7-4-2022', '6-5-2022']
+        args = ['user_base.py', '-s', '12-3-2023', '-e', '12-11-2002']
+        expected = 0
+        result = user_base.getArgsDates(dates, args)
+        self.assertEqual(expected, result)

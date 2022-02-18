@@ -4,7 +4,7 @@ import requests
 import plotext as plt
 
 
-def getHttpData(url) -> (str):
+def getHttpData(url) -> (str): 
     """Makes HTTP GET request to the given url
     and returns response as string.
 
@@ -27,20 +27,63 @@ def getHttpData(url) -> (str):
         return err_msg
     
 
-def arrangeData(data) -> (list):
+def arrangeData(data) -> (list): #!docstring
     '''TODO'''
     
 
-def dateFilter(dates, start_date, end_date) -> (list):
+def dateFilter(dates, start_date, end_date) -> (list): #!docstring
+    """_summary_
+
+    Args:
+        dates (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """    
     if start_date in dates and end_date in dates:
         start_date = datetime.strptime(start_date, '%d-%m-%Y')
         end_date = datetime.strptime(end_date, '%d-%m-%Y')
         return  [date for date in dates if start_date <= datetime.strptime(date, '%d-%m-%Y') <=end_date]
     return []
 
-def plotGraph(x, y):
+
+def getArgsDates(dates, args)-> (list):
+    if len(args) == 5:
+        start_date = [args[i+1] for i in range(len(args)) if args[i] == '-s'][0]
+        end_date = [args[i+1] for i in range(len(args)) if args[i] == '-e'][0]
+        try:
+            sd = datetime.strptime(start_date, '%d-%m-%Y') #start date
+            ed = datetime.strptime(end_date, '%d-%m-%Y') #end date
+            assert (sd)
+            assert (ed)
+            if sd > ed:
+                print('Start date should be less than end date')
+                return 0
+            return [start_date, end_date]
+        except ValueError:
+            print('Date format should be: dd-mm-yyyy')
+            exit()
+    elif len(args) == 1:
+        return [dates[0], dates[-1]]
+    else:
+       #TODO implement help function
+       return 0
+
+def plotGraph(x, y): #!docstring
     '''TODO'''
 
 
 if __name__ == '__main__':
-    args = sys.args
+    url = 'http://sam-user-activity.eu-west-1.elasticbeanstalk.com/'
+    data = getHttpData(url)
+    # dates = 
+    if type(getArgsDates(dates, args)) == list:
+        start_date, end_date = getArgsDates(dates, args)
+    else:
+        #TODO help
+        #help()
+        exit()
+
+    print(args)
+
+    # print(getArgsDates())
