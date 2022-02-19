@@ -1,27 +1,79 @@
-# foondaMateUserBase
-CLI application that visualises the growth of company userbase by plotting a graph on a terminal
+# FoondaMate Software Engineer Coding Challenge-001
 
-The programs run on virtual enviroment.
-    to get all dependancies run:
-    make env
+CLI application that sends an HTTP request to an end point that returns a userbase (_**Dates as keys and the number of active users on those dates (as values)**_) then plots a bar graph that  visualises the growth of a company. Users can filter the data they want to see by specifying  _start date_ and _end date_.
 
-!Note you need to run the test server in a different terminal to run all the tests.
+### The User Base bar graph
 
-:
-To install required packages:
-    make install
+* Shows number of users on the y-axis
+* Shows dates on the x-axis
 
-To run all tests:
-    make test
+## How to install
+### Use [Makefile](https://www.gnu.org/software/make/manual/make.html) for configuration
 
-To run the test server
-    make runserver
+**All required packages are installed in a [virtualenv](https://docs.python.org/3/library/venv.html) to activated the *virtualenv* run:**
 
-To run the program:
-    user_base.py -s {start date} -e {end date}
-    eg: python3 user_base.py -s 12-11-2002 -e 12-3-2023
+> **NOTE**: Use the commands bellow without the dollar sign ($)
 
-To view program requirements:
-    pip3 freeze
+```bash
+$ make env
+```
+or
+```bash
+$ source env/bin/activate
+```
 
 
+**To install all required packages run:**
+```bash
+$ make install
+```
+or
+```bash
+$ pip3 install -r requirements.text
+``` 
+&nbsp;
+
+## Running unittests
+#### Starting the test server
+There is a [test server](https://github.com/hathabanJHB/foondaMateUserBase/blob/main/tests/test_server.py) in the [tests directory](https://github.com/hathabanJHB/foondaMateUserBase/tree/main/tests) that help to test the network layer functions. You need to start the server on a separate terminal. Assuming you're in the [base directory](https://github.com/hathabanJHB/foondaMateUserBase/tree/main/) just run:
+```bash
+$ python3 tests/test_server.py
+``` 
+or
+```bash
+$ make runserver
+``` 
+#### Running all test
+> **NOTE**: Some tests will fail if the [test server](https://github.com/hathabanJHB/foondaMateUserBase/blob/main/tests/test_server.py) is not running
+
+```bash
+$ make test
+``` 
+or
+```bash
+$ python3 -m unittest tests/test_user_base.py
+``` 
+
+
+
+&nbsp;
+
+## Usage
+```bash
+$ python3 user_base.py -s start_date -e end_date
+```
+The program runs on the terminal and it takes the following command line argument:
+* Start date in (_dd-mm-yy_) format: specified by the `-s` flag
+```bash
+$ python3 user_base.py -s 01-01-2022
+```
+* End in (_dd-mm-yy_) format specified by the `-e` flag
+
+```bash
+python3 user_base.py -e 15-01-2022
+```
+#### example:
+```bash
+python3 user_base.py -s 01-01-2022 -e 15-01-2022
+```
+**For any query send Email to: <hthabang23@gmail.com>

@@ -139,7 +139,62 @@ if __name__ == '__main__':
 
     if type(getArgsDates(dates, args)) == list:
         start_date, end_date = getArgsDates(dates, args)
-        plotGraph(users, dates)
+        plotGraph(users, dates)# FoondaMate Software Engineer Coding Challenge-001
+CLI application that sends an HTTP request to an end point that returns a userbase (_**Dates as keys and the number of active users on those dates (as values)**_) then plots a bar graph that  visualises the growth of a company. Users can filter the data they want to see by specifying  _start date_ and _end date_.
+
+
+### The User Base bar graph
+* Shows number of users on the y-axis
+* Shows dates on the x-axis
+
+## How to install
+### Use [Makefile](https://www.gnu.org/software/make/manual/make.html) for configuration
+
+**All required packages are installed in a [virtualenv](https://docs.python.org/3/library/venv.html) to activated the *virtualenv* run:**
+
+> **NOTE**: Use the commands bellow without the dollar sign ($)
+
+```bash
+'$make env'
+```
+
+**To install all required packages run:**
+```bash
+'$make install'
+```
+
+## Usage
+The program runs on the terminal and it takes the following command line argument:
+* Start date in (_dd-mm-yy_) format: specified by the `-s` flag
+```bash
+python3 user_base.py -s 12-11-2002 -e 12-3-2023
+```
+* End in (_dd-mm-yy_) format
+
+```bash
+$python3
+```
+
+```python
+import foobar
+
+# returns 'words'
+foobar.pluralize('word')
+
+# returns 'geese'
+foobar.pluralize('goose')
+
+# returns 'phenomenon'
+foobar.singularize('phenomena')
+```
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
     else:
         print(f'Available dates: ', *dates)
         print()
