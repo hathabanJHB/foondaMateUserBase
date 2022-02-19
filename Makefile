@@ -4,11 +4,8 @@ runserver:
 test:
 	python3 -m unittest tests/test_user_base.py
 
-requirements:
-	python3 -m pip freeze
+install:
+	pip3 install -r requirements.text
 
 env:
 	source env/bin/activate
-
-
-	

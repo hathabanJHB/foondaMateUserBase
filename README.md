@@ -5,16 +5,23 @@ The programs run on virtual enviroment.
     to get all dependancies run:
     make env
 
-!Note you need to run to run the test server in a different terminal to run all the tests
-to run all tests:
+!Note you need to run the test server in a different terminal to run all the tests.
+
+:
+To install required packages:
+    make install
+
+To run all tests:
     make test
 
 To run the test server
     make runserver
 
-to run the program:
+To run the program:
     user_base.py -s {start date} -e {end date}
-    eg: user_base.py -s 12-11-2002 -e 12-3-2023
+    eg: python3 user_base.py -s 12-11-2002 -e 12-3-2023
 
-to view program requirements:
-    make requirements
+To view program requirements:
+    pip3 freeze
+
+
